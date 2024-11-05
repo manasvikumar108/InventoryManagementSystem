@@ -8,7 +8,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 include 'db.php';
-include 'navbar.php';
+include 'navbar.php'; // Include navbar (acting as sidebar)
 
 // Handle form submission for adding a new customer
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['customer_name'])) {
@@ -38,28 +38,43 @@ if (isset($_GET['delete'])) {
 // Display all customers
 $sql = "SELECT * FROM customers";
 $result = $conn->query($sql);
-
-echo '<div style="margin-left: 210px; padding: 20px;">';
-echo '<h1>Manage Customers</h1>';
-
-// Form for adding new customer
-echo '<form method="POST" action="customers.php">
-        <label>Customer Name: </label><input type="text" name="customer_name" required><br>
-        <input type="submit" value="Add Customer">
-      </form>';
-
-// Display all customers
-if ($result->num_rows > 0) {
-    echo '<table border="1">';
-    echo '<tr><th>Customer Name</th><th>Actions</th></tr>';
-    while($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["customer_name"] . "</td>";
-        echo "<td><a href='customers.php?delete=" . $row['id'] . "' onclick='return confirm(\"Are you sure you want to delete this customer?\");'>Delete</a></td></tr>";
-    }
-    echo '</table>';
-} else {
-    echo "No customers found.";
-}
-
-echo '</div>';
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Customers</title>
+    <link rel="stylesheet" href="Style/navbar.css"> <!-- Link to navbar CSS -->
+    <link rel="stylesheet" href="Style/customers.css"> <!-- Link to page-specific CSS -->
+</head>
+<body>
+    <div class="content"> <!-- Adjust margin for sidebar -->
+        <h1>Manage Customers</h1>
+
+        <!-- Form for adding new customer -->
+        <form method="POST" action="customers.php">
+            <label>Customer Name: </label>
+            <input type="text" name="customer_name" required><br>
+            <input type="submit" value="Add Customer">
+        </form>
+
+        <!-- Display all customers -->
+        <h2>Existing Customers</h2>
+        <?php
+        if ($result->num_rows > 0) {
+            echo '<table>';
+            echo '<tr><th>Customer Name</th><th>Actions</th></tr>';
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr><td>" . htmlspecialchars($row["customer_name"]) . "</td>";
+                echo "<td><a href='customers.php?delete=" . $row['id'] . "' onclick='return confirm(\"Are you sure you want to delete this customer?\");'>Delete</a></td></tr>";
+            }
+            echo '</table>';
+        } else {
+            echo "<p>No customers found.</p>";
+        }
+        ?>
+    </div>
+</body>
+</html>

@@ -1,15 +1,17 @@
 <?php
 include 'db.php';  // Include the database connection
 
-// Check if any user exists in the database
+// Redirect to signup if no user exists
 $sql = "SELECT * FROM users";
 $result = $conn->query($sql);
 
 if ($result->num_rows == 0) {
-    // If no user exists, redirect to the signup page
     header("Location: signup.php");
     exit();
 }
+
+// Initialize message variable
+$message = "";
 
 // Handle login form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -25,8 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         session_start();
         $_SESSION['user'] = $username;  // Store username in session
         header("Location: index.php");  // Redirect to the dashboard
+        exit();
     } else {
-        echo "Invalid login credentials.";
+        // Set the message for invalid credentials
+        $message = "Invalid login credentials.";
     }
 }
 ?>
@@ -37,16 +41,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="./Style/login.css">
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="POST" action="login.php">
-        <label>Username:</label>
-        <input type="text" name="username" required><br>
-        <label>Password:</label>
-        <input type="password" name="password" required><br>
-        <input type="submit" value="Login">
-    </form>
-    <p>Don't have an account? <a href="signup.php">Signup here</a>.</p>  <!-- Link to signup page -->
+    <div class="container">
+        <h2>Login</h2>
+
+        <!-- Message container to hold PHP output messages -->
+        <div class="message-container">
+            <?php
+                if (!empty($message)) {
+                    echo "<div class='message error'>$message</div>";
+                }
+            ?>
+        </div>
+
+        <form method="POST" action="login.php">
+            <label>Username:</label>
+            <input type="text" name="username" required><br>
+            <label>Password:</label>
+            <input type="password" name="password" required><br>
+            <input type="submit" value="Login">
+        </form>
+        <p>Don't have an account? <a href="signup.php">Signup here</a>.</p>
+    </div>
 </body>
 </html>

@@ -1,0 +1,38 @@
+/* Styles for the navbar */
+.navbar {
+    width: 200px;
+    height: 100vh;
+    background-color: #28a745; /* Greenish background */
+    color: white;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
+    position: fixed; /* Fixed position */
+}
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.navbar li {
+    margin: 15px 0; /* Space between links */
+}
+
+.navbar a {
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Bold text */
+    display: block; /* Make the entire area clickable */
+    padding: 10px; /* Add some padding */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.navbar a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Lighten on hover */
+}
+
+
+.navbar a.active {
+    background-color: rgba(255, 255, 255, 0.4); /* Different background for active tab */
+    color: yellow; /* Change text color if desired */
+}

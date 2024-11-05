@@ -6,8 +6,9 @@ if (!isset($_SESSION['user'])) {
     header("Location: login.php");  // Redirect to login if not authenticated
     exit();
 }
+
 include 'db.php';
-include 'navbar.php';
+include 'navbar.php'; // Include navbar (acting as sidebar)
 
 // Handle form submission for adding a new category
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -45,32 +46,34 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category Management</title>
+    <link rel="stylesheet" href="Style/navbar.css"> <!-- Link to navbar CSS -->
+    <link rel="stylesheet" href="Style/categories.css"> <!-- Link to page-specific CSS -->
 </head>
 <body>
+    <div class="content"> <!-- Adjust margin for sidebar -->
+        <h1>Category Management</h1>
 
-<h1>Category Management</h1>
+        <!-- Form to add a new category -->
+        <form method="POST" action="">
+            <label>Category Name: </label>
+            <input type="text" name="category_name" required><br>
+            <input type="submit" value="Add Category">
+        </form>
 
-<!-- Form to add a new category -->
-<form method="POST" action="">
-    <label>Category Name: </label>
-    <input type="text" name="category_name" required><br>
-    <input type="submit" value="Add Category">
-</form>
-
-<h2>Existing Categories</h2>
-<?php
-if ($result->num_rows > 0) {
-    echo '<table border="1">';
-    echo '<tr><th>Category Name</th><th>Actions</th></tr>';
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["name"] . "</td>";
-        echo "<td><a href='categories.php?delete=" . $row['id'] . "' onclick='return confirm(\"Are you sure you want to delete this category?\");'>Delete</a></td></tr>";
-    }
-    echo '</table>';
-} else {
-    echo "<p>No categories found.</p>";
-}
-?>
-
+        <h2>Existing Categories</h2>
+        <?php
+        if ($result->num_rows > 0) {
+            echo '<table>';
+            echo '<tr><th>Category Name</th><th>Actions</th></tr>';
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr><td>" . htmlspecialchars($row["name"]) . "</td>";
+                echo "<td><a href='categories.php?delete=" . $row['id'] . "' onclick='return confirm(\"Are you sure you want to delete this category?\");'>Delete</a></td></tr>";
+            }
+            echo '</table>';
+        } else {
+            echo "<p>No categories found.</p>";
+        }
+        ?>
+    </div>
 </body>
 </html>

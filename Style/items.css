@@ -1,0 +1,74 @@
+/* Styles for the items management page */
+body {
+    font-family: Arial, sans-serif; /* Set a base font */
+    background-color: #f0f0f0; /* Light gray background */
+    margin: 0; /* Remove default margin */
+}
+
+.content{
+    margin-left: 241px;
+    padding: 20px;
+}
+
+/* Form styles */
+form {
+    background-color: #ffffff; /* White background for form */
+    padding: 20px; /* Padding around form */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-bottom: 20px; /* Space below the form */
+}
+
+label {
+    display: block; /* Block display for labels */
+    margin: 10px 0 5px; /* Spacing for labels */
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside inputs */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px; /* Rounded corners */
+    margin-bottom: 10px; /* Space below inputs */
+}
+
+input[type="submit"] {
+    background-color: #28a745; /* Green submit button */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 15px; /* Padding for button */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+}
+
+input[type="submit"]:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Table styles */
+table {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Collapse borders */
+    margin-top: 20px; /* Space above the table */
+}
+
+th, td {
+    padding: 10px; /* Padding for table cells */
+    text-align: left; /* Align text to the left */
+    border-bottom: 1px solid #ddd; /* Light gray bottom border */
+}
+
+th {
+    background-color: #28a745; /* Green header background */
+    color: white; /* White text */
+}
+
+tr:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Light gray on hover */
+}
+
+h1, h2 {
+    color: #333; /* Dark gray for headers */
+}
